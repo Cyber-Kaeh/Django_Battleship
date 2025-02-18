@@ -5,6 +5,10 @@ from django.contrib.auth.decorators import login_required
 from .models import GameSession
 
 # Create your views here.
+def home_view(request):
+    return render(request, 'game/home.html')
+
+
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
