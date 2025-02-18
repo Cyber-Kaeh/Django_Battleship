@@ -7,13 +7,14 @@
 <p>Waiting for another player to join...</p>
 <script>
     setInterval(() => {
-        fetch("{% url 'matchmaking' %}")
-            .then(response => response.text())
-            .ten(data => {
-                if (data.includes("game_room")) {
-                    window.location.href = data;
+        fetch("/game/matchmaking/")
+            .then(response => response.json())
+            .then(data => {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
                 }
-            });
+            })
+            .catch(error => console.error("Error checking for match:", error));
     }, 3000)
 </script>
 {% endif %}
