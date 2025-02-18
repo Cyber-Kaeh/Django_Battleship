@@ -11,3 +11,12 @@ class UserProfile(models.Model):
 class Lobby(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class GameSession(models.Model):
+    player1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games_as_player1')
+    player2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games_as_player2', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    def is_full(self):
+        return self.player2 is not None
